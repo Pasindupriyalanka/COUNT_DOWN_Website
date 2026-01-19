@@ -1,23 +1,31 @@
-function countdown(eventDate, elementId) {
+function updateCountdown(eventDate, elementId) {
+    const element = document.getElementById(elementId);
+    
     setInterval(() => {
         const now = new Date().getTime();
         const distance = eventDate - now;
 
         if (distance < 0) {
-            document.getElementById(elementId).innerHTML = "Event Started!";
+            element.innerHTML = "<h3>Event Started!</h3>";
             return;
         }
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((distance / (1000 * 60)) % 60);
-        const seconds = Math.floor((distance / 1000) % 60);
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((distance / (1000 * 60)) % 60);
+        const s = Math.floor((distance / 1000) % 60);
 
-        document.getElementById(elementId).innerHTML =
-            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        element.querySelector('.days').innerText = d < 10 ? '0'+d : d;
+        element.querySelector('.hours').innerText = h < 10 ? '0'+h : h;
+        element.querySelector('.minutes').innerText = m < 10 ? '0'+m : m;
+        element.querySelector('.seconds').innerText = s < 10 ? '0'+s : s;
     }, 1000);
 }
 
-countdown(new Date("2026-03-15").getTime(), "exam");
-countdown(new Date("2026-04-10").getTime(), "convocation");
-countdown(new Date("2026-02-20").getTime(), "sports");
+
+updateCountdown(new Date("2026-01-20").getTime(), "sport-fiesta");
+updateCountdown(new Date("2026-02-02").getTime(), "music-festival");
+updateCountdown(new Date("2026-02-24").getTime(), "convocation");
+updateCountdown(new Date("2026-04-20").getTime(), "new-year");
+updateCountdown(new Date("2026-06-15").getTime(), "mid-exam");
+updateCountdown(new Date("2026-12-30").getTime(), "christmas");
